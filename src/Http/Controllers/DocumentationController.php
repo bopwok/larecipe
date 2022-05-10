@@ -44,6 +44,7 @@ class DocumentationController extends Controller
         return redirect()->route(
             'larecipe.show',
             [
+                'doc' => config('larecipe.docs.default'),
                 'version' => config('larecipe.versions.default'),
                 'page' => config('larecipe.docs.landing')
             ]
@@ -58,9 +59,9 @@ class DocumentationController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($version, $page = null)
+    public function show($doc, $version, $page = null)
     {
-        $documentation = $this->documentationRepository->get($version, $page);
+        $documentation = $this->documentationRepository->get($doc, $version, $page);
         
         if (Gate::has('viewLarecipe')) {
             $this->authorize('viewLarecipe', $documentation);
@@ -70,6 +71,7 @@ class DocumentationController extends Controller
             return redirect()->route(
                 'larecipe.show',
                 [
+                    'doc' => $doc,
                     'version' => config('larecipe.versions.default'),
                     'page' => config('larecipe.docs.landing')
                 ]

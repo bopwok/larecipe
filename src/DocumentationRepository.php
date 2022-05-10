@@ -40,13 +40,14 @@ class DocumentationRepository
      * @param array $data
      * @return $this|DocumentationRepository
      */
-    public function get($version, $page = null, $data = [])
+    public function get($doc, $version, $page = null, $data = [])
     {
+        $this->doc = $doc;
         $this->version = $version;
         $this->sectionPage = $page ?: config('larecipe.docs.landing');
-        $this->index = $this->documentation->getIndex($version);
+        $this->index = $this->documentation->getIndex($doc, $version);
 
-        $this->content = $this->documentation->get($version, $this->sectionPage, $data);
+        $this->content = $this->documentation->get($doc, $version, $this->sectionPage, $data);
 
         if (is_null($this->content)) {
             return $this->prepareNotFound();
@@ -54,7 +55,7 @@ class DocumentationRepository
 
         $this->prepareTitle()
             ->prepareCanonical()
-            ->prepareSection($version, $page);
+            ->prepareSection($doc, $version, $page);
 
         return $this;
     }
@@ -95,9 +96,9 @@ class DocumentationRepository
      * @param $page
      * @return $this
      */
-    protected function prepareSection($version, $page)
+    protected function prepareSection($doc, $version, $page)
     {
-        if ($this->documentation->sectionExists($version, $page)) {
+        if ($this->documentation->sectionExists($doc, $version, $page)) {
             $this->currentSection = $page;
         }
 
@@ -111,8 +112,9 @@ class DocumentationRepository
      */
     protected function prepareCanonical()
     {
-        if ($this->documentation->sectionExists($this->defaultVersion, $this->sectionPage)) {
+        if ($this->documentation->sectionExists($this->defaultDoc, $this->defaultVersion, $this->sectionPage)) {
             $this->canonical = route('larecipe.show', [
+                'doc' => $this->defaultDoc,
                 'version' => $this->defaultVersion,
                 'page' => $this->sectionPage
             ]);
