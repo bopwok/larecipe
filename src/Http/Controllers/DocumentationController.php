@@ -79,6 +79,7 @@ class DocumentationController extends Controller
         }
 
         return response()->view('larecipe::docs', [
+            'doc'            => $doc,
             'title'          => $documentation->title,
             'index'          => $documentation->index,
             'content'        => $documentation->content,
