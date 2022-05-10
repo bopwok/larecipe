@@ -28,9 +28,10 @@ class DocumentationRepository
         $this->documentation = $documentation;
 
         $this->docsRoute = route('larecipe.index');
+        $this->defaultDoc = config('larecipe.docs.default');
         $this->defaultVersion = config('larecipe.versions.default');
         $this->publishedVersions = config('larecipe.versions.published');
-        $this->defaultVersionUrl = route('larecipe.show', ['version' => $this->defaultVersion]);
+        $this->defaultVersionUrl = route('larecipe.show', ['doc'=>$this->defaultDoc, 'version' => $this->defaultVersion]);
     }
 
     /**
