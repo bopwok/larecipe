@@ -56,7 +56,7 @@ class Documentation
             }
 
             return null;
-        }, 'larecipe.docs.'.$version.'.index');
+        }, 'larecipe.docs.'.$doc.'.'.$version.'.index');
     }
 
     /**
