@@ -52,7 +52,7 @@ class Documentation
             if ($this->files->exists($path)) {
                 $parsedContent = $this->parse($this->files->get($path));
 
-                return $this->replaceLinks($version, $parsedContent);
+                return $this->replaceLinks($doc, $version, $parsedContent);
             }
 
             return null;
