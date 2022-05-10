@@ -11,4 +11,4 @@ Route::get('/scripts/{script}', 'ScriptController')->name('scripts');
 
 // Documentation..
 Route::get('/', 'DocumentationController@index')->name('index');
-Route::get('/{version}/{page?}', 'DocumentationController@show')->where('page', '(.*)')->name('show');
+Route::get('/{doc}/{version}/{page?}', 'DocumentationController@show')->where('page', '(.*)')->name('show');
