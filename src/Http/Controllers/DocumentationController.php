@@ -19,6 +19,7 @@ class DocumentationController extends Controller
      */
     public function __construct(DocumentationRepository $documentationRepository)
     {
+        dd($this->documentationRepository);
         $this->documentationRepository = $documentationRepository;
 
         if (config('larecipe.settings.guard')) {
