@@ -1,4 +1,4 @@
-@extends('larecipe::default')
+@extends('default')
 
 @section('content')
 <div>
